@@ -1,15 +1,17 @@
+import numpy as np
+from scipy.cluster.hierarchy import linkage, dendrogram
 import matplotlib.pyplot as plt
-from sklearn.cluster import KMeans
-from sklearn.datasets.samples_generator import make_blobs
+# from sklearn.datasets.samples_generator import make_blobs
 
-x,y = make_blobs(n_samples=100,centers=5,random_state=0,cluster_std=0.6)
+x = np.array([[1,1],[1.5,1],[3,3],[4,4],[3,3.5],[3.5,4]])
 plt.scatter(x[:,0],x[:,1],s=50)
 
 plt.show()
 
-est = KMeans(n_clusters = 5)
-est.fit(x)
-y_kmeans = est.predict(x)
+linkage_matrix = linkage(x, "single")
 
-plt.scatter(x[:,0],x[:,1],c=y_kmeans, s=50,cmap='rainbow')
+dendrogram = dendrogram(linkage_matrix,truncate_mode='none')
+			   
+plt.title("Hierarchical clustering")
+
 plt.show()
